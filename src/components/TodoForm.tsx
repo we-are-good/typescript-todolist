@@ -10,37 +10,35 @@ import {
 } from "../styles/TodoFormStyle";
 
 function TodoForm({
+  setTodoList,
   todoTitle,
   setTodoTitle,
   todoContent,
   setTodoContent,
   todoDate,
   setTodoDate,
-  isDone,
 }: {
-  setTodoList: React.Dispatch<React.SetStateAction<Todos | undefined>>;
+  setTodoList: React.Dispatch<React.SetStateAction<Todos[]>>;
   todoTitle: string;
   setTodoTitle: React.Dispatch<React.SetStateAction<string>>;
   todoContent: string;
   setTodoContent: React.Dispatch<React.SetStateAction<string>>;
   todoDate: string;
   setTodoDate: React.Dispatch<React.SetStateAction<string>>;
-  isDone: boolean;
 }) {
-  const addTodo = ({
-    setTodoList,
-  }: {
-    setTodoList: (cb: (todoList: Todos[]) => Todos[]) => void;
-  }) => {
+  const addTodo = async () => {
+    const randomId = () => {
+      return Math.floor(Math.random() * 1000000000);
+    };
     const newTodo: Todos = {
-      id: Math.random(),
+      id: randomId(),
       todoTitle,
       todoContent,
       todoDate,
-      isDone,
+      isDone: false,
     };
-
-    setTodoList((prev) => [newTodo, ...prev]);
+    console.log(randomId());
+    await setTodoList((prev) => [newTodo, ...prev]);
     setTodoTitle("");
     setTodoContent("");
     setTodoDate("");
@@ -55,7 +53,6 @@ function TodoForm({
   function dateEventHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setTodoDate(event.target.value);
   }
-
   return (
     <>
       <TodoTitleWrapper>
@@ -74,7 +71,7 @@ function TodoForm({
           <ButtonWrapper>
             <button
               onClick={() => {
-                addTodo;
+                addTodo();
               }}
             >
               등록
