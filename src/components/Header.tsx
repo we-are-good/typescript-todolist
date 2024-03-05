@@ -1,11 +1,12 @@
 import React from "react";
+import { HeaderWrapper } from "../styles/HeaderStyle";
 
 function Header() {
   return (
-    <div>
+    <HeaderWrapper>
       <div>TodoList</div>
       <div>Typescript</div>
-    </div>
+    </HeaderWrapper>
   );
 }
 
