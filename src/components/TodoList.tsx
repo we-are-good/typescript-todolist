@@ -1,12 +1,20 @@
+import { Todos } from "../App";
 import {
   ButtonWrapper,
   InputDataWrapper,
   TodoTitleWrapper,
 } from "../styles/TodoFormStyle";
 import { TodoContent, TodoTitle } from "../styles/TodoListStyle";
-import { Todos } from "../App";
+import TodoDelete from "./TodoDelete";
+import TodoToggle from "./TodoToggle";
 
-function TodoList({ todoList }: { todoList: Todos[] }) {
+function TodoList({
+  todoList,
+  setTodoList,
+}: {
+  todoList: Todos[];
+  setTodoList: React.Dispatch<React.SetStateAction<Todos[]>>;
+}) {
   console.log(todoList);
   return (
     <div>
@@ -19,8 +27,17 @@ function TodoList({ todoList }: { todoList: Todos[] }) {
                 <TodoContent> {todo.todoContent} </TodoContent>
                 <TodoContent> {todo.todoDate} </TodoContent>
                 <ButtonWrapper>
-                  <button>{todo.isDone ? "완료" : "진행중"}</button>
-                  <button>삭제</button>
+                  <TodoToggle
+                    todoList={todoList}
+                    setTodoList={setTodoList}
+                    id={todo.id}
+                    todo={todo}
+                  />
+                  <TodoDelete
+                    todoList={todoList}
+                    setTodoList={setTodoList}
+                    id={todo.id}
+                  />
                 </ButtonWrapper>
               </InputDataWrapper>
             </TodoTitleWrapper>
