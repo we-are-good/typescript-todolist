@@ -32,10 +32,9 @@ function App() {
         setTodoContent={setTodoContent}
         todoDate={todoDate}
         setTodoDate={setTodoDate}
-        isDone={isDone}
         setIsDone={setIsDone}
       />
-      <TodoList todoList={todoList} />
+      <TodoList todoList={todoList} setTodoList={setTodoList} />
     </>
   );
 }
