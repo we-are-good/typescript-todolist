@@ -25,6 +25,11 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+
+	display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -62,6 +67,17 @@ table {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			justify-content: center;
+			max-width: 1200px;
+			min-width: 800px;
+		}
+
+		#root {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			
 		}
   
 `;

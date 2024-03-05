@@ -2,7 +2,6 @@ import { useState } from "react";
 import Header from "./components/Header";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
-import { GlobalStyle } from "./styles/GlobalStyle";
 import dummydata from "./dummydata.json";
 
 export interface Todos {
@@ -22,7 +21,6 @@ function App() {
 
   return (
     <>
-      <GlobalStyle />
       <Header />
       <TodoForm
         setTodoList={setTodoList}

@@ -19,7 +19,7 @@ function TodoList({
   return (
     <div>
       <div>
-        <IsDoneWrapper>진행중</IsDoneWrapper>
+        <IsDoneWrapper>Working</IsDoneWrapper>
         {todoList.map((todo) => {
           return (
             <div>
@@ -53,7 +53,7 @@ function TodoList({
           );
         })}
 
-        <IsDoneWrapper>완료</IsDoneWrapper>
+        <IsDoneWrapper>Done</IsDoneWrapper>
         {todoList.map((todo) => {
           return (
             <div>
