@@ -14,9 +14,10 @@ function TodoToggle({
 }) {
   const todoToggle = () => {
     const toggleTodo = todoList.find((todo) => todo.id === id);
+    const deleteTodo = todoList.filter((todo) => todo.id !== id);
     if (!toggleTodo) return console.log("일치하는 값이 없습니다.");
     toggleTodo.isDone = !toggleTodo.isDone;
-    setTodoList((prev) => [...prev, toggleTodo]);
+    setTodoList([...deleteTodo, toggleTodo]);
   };
   return <button onClick={todoToggle}>{todo.isDone ? "취소" : "완료"}</button>;
 }

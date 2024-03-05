@@ -23,7 +23,7 @@ function TodoList({
         {todoList.map((todo) => {
           return (
             <div>
-              {todo.isDone && (
+              {!todo.isDone && (
                 <div>
                   <div key={todo.id}>
                     <TodoTitleWrapper>
@@ -57,7 +57,7 @@ function TodoList({
         {todoList.map((todo) => {
           return (
             <div>
-              {!todo.isDone && (
+              {todo.isDone && (
                 <div>
                   <div key={todo.id}>
                     <TodoTitleWrapper>
