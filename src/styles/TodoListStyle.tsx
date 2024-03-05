@@ -15,3 +15,14 @@ export const TodoContent = styled.div`
   background-color: transparent;
   resize: none;
 `;
+
+export const IsDoneWrapper = styled.div`
+  height: 2rem;
+  background-color: #a2ffd5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 40px;
+  font-weight: 800;
+`;

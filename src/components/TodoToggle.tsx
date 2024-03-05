@@ -18,9 +18,7 @@ function TodoToggle({
     toggleTodo.isDone = !toggleTodo.isDone;
     setTodoList((prev) => [...prev, toggleTodo]);
   };
-  return (
-    <button onClick={todoToggle}>{todo.isDone ? "완료" : "진행중"}</button>
-  );
+  return <button onClick={todoToggle}>{todo.isDone ? "취소" : "완료"}</button>;
 }
 
 export default TodoToggle;
