@@ -57,5 +57,11 @@ table {
     button{
         cursor: pointer;
     }
+		
+		body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
   
 `;
