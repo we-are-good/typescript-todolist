@@ -1,19 +1,41 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
 import Header from "./components/Header";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import { GlobalStyle } from "./styles/GlobalStyle";
+import dummydata from "./dummydata.json";
+
+export interface Todos {
+  id: number;
+  todoTitle: string;
+  todoContent: string;
+  todoDate: string;
+  isDone: boolean;
+}
 
 function App() {
+  const [todoList, setTodoList] = useState<Todos[]>(dummydata);
+  const [todoTitle, setTodoTitle] = useState<string>("");
+  const [todoContent, setTodoContent] = useState<string>("");
+  const [todoDate, setTodoDate] = useState<string>("");
+  const [isDone, setIsDone] = useState<boolean>(false);
+
   return (
     <>
       <GlobalStyle />
       <Header />
-      <TodoForm />
-      <TodoList />
+      <TodoForm
+        setTodoList={setTodoList}
+        todoTitle={todoTitle}
+        setTodoTitle={setTodoTitle}
+        todoContent={todoContent}
+        setTodoContent={setTodoContent}
+        todoDate={todoDate}
+        setTodoDate={setTodoDate}
+        isDone={isDone}
+        setIsDone={setIsDone}
+      />
+      <TodoList todoList={todoList} />
     </>
   );
 }
