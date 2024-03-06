@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Todos } from "../App";
 
 import { useDispatch } from "react-redux";
@@ -10,24 +10,12 @@ import {
   TodoTitleInput,
   TodoTitleWrapper,
 } from "../styles/TodoFormStyle";
+import { createTodo } from "../api/todoListApi";
 
-function TodoForm({
-  setTodoList,
-  todoTitle,
-  setTodoTitle,
-  todoContent,
-  setTodoContent,
-  todoDate,
-  setTodoDate,
-}: {
-  setTodoList: React.Dispatch<React.SetStateAction<Todos[]>>;
-  todoTitle: string;
-  setTodoTitle: React.Dispatch<React.SetStateAction<string>>;
-  todoContent: string;
-  setTodoContent: React.Dispatch<React.SetStateAction<string>>;
-  todoDate: string;
-  setTodoDate: React.Dispatch<React.SetStateAction<string>>;
-}) {
+function TodoForm() {
+  const [todoTitle, setTodoTitle] = useState<string>("");
+  const [todoContent, setTodoContent] = useState<string>("");
+  const [todoDate, setTodoDate] = useState<string>("");
   const dispatch = useDispatch();
   const addTodo = async () => {
     const randomId = () => {
@@ -42,6 +30,8 @@ function TodoForm({
     };
     console.log(randomId());
     dispatch(addTodoList(newTodo));
+    createTodo(newTodo);
+
     setTodoTitle("");
     setTodoContent("");
     setTodoDate("");

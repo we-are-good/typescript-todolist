@@ -1,9 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import dummydata from "../../dummydata.json";
 import { Todos } from "../../App";
 
-const initialState = {
-  todoList: dummydata,
+export interface todoList {
+  todoList: Todos[];
+}
+
+const initialState: todoList = {
+  todoList: [],
 };
 
 const todoListSlice = createSlice({
@@ -31,9 +34,13 @@ const todoListSlice = createSlice({
       findToggleTodo.isDone = !findToggleTodo.isDone;
       state.todoList = [...deleteTodo, findToggleTodo];
     },
+    viewTodoList: (state, action: PayloadAction<Todos[]>) => {
+      state.todoList = action.payload;
+      console.log(state.todoList);
+    },
   },
 });
 
 export default todoListSlice.reducer;
-export const { addTodoList, deleteTodoList, toggleTodo } =
+export const { addTodoList, deleteTodoList, toggleTodo, viewTodoList } =
   todoListSlice.actions;

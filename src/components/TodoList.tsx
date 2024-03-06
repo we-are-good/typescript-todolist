@@ -1,5 +1,8 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Todos } from "../App";
+import { getTodoList } from "../api/todoListApi";
+import { RootState } from "../redux/config/configStore";
 import {
   ButtonWrapper,
   InputDataWrapper,
@@ -8,12 +11,21 @@ import {
 import { IsDoneWrapper, TodoContent, TodoTitle } from "../styles/TodoListStyle";
 import TodoDelete from "./TodoDelete";
 import TodoToggle from "./TodoToggle";
-import { RootState } from "../redux/config/configStore";
+import { viewTodoList } from "../redux/modules/todoListModule";
 
 function TodoList() {
+  const dispatch = useDispatch();
   const todoList: Todos[] = useSelector(
     (state: RootState) => state.todoList.todoList
   );
+
+  useEffect(() => {
+    const viewTodos = async () => {
+      const data: Todos[] = await getTodoList();
+      dispatch(viewTodoList(data));
+    };
+    viewTodos();
+  }, [dispatch]);
 
   return (
     <div>
@@ -21,7 +33,7 @@ function TodoList() {
         <IsDoneWrapper>Working</IsDoneWrapper>
         {todoList.map((todo) => {
           return (
-            <div>
+            <div key={todo.id}>
               {!todo.isDone && (
                 <div>
                   <div key={todo.id}>
@@ -46,10 +58,10 @@ function TodoList() {
         <IsDoneWrapper>Done</IsDoneWrapper>
         {todoList.map((todo) => {
           return (
-            <div>
+            <div key={todo.id}>
               {todo.isDone && (
                 <div>
-                  <div key={todo.id}>
+                  <div>
                     <TodoTitleWrapper>
                       <TodoTitle> {todo.todoTitle} </TodoTitle>
                       <InputDataWrapper>
