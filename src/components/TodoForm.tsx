@@ -19,7 +19,7 @@ function TodoForm() {
   const dispatch = useDispatch();
   const addTodo = async () => {
     const randomId = () => {
-      return Math.floor(Math.random() * 1000000000);
+      return Math.floor(Math.random() * 1000000000).toString();
     };
     const newTodo: Todos = {
       id: randomId(),

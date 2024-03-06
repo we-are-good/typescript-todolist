@@ -3,7 +3,7 @@ import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 
 export interface Todos {
-  id: number;
+  id: string;
   todoTitle: string;
   todoContent: string;
   todoDate: string;
