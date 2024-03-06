@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import todoList from "../modules/todoList";
+import todoList from "../modules/todoListModule";
 
 const store = configureStore({
   reducer: {
@@ -8,3 +8,4 @@ const store = configureStore({
 });
 
 export default store;
+export type RootState = ReturnType<typeof store.getState>;

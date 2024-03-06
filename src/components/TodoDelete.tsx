@@ -1,18 +1,11 @@
-import { Todos } from "../App";
+import { useDispatch } from "react-redux";
+import { deleteTodoList } from "../redux/modules/todoListModule";
 
-function TodoDelete({
-  todoList,
-  setTodoList,
-  id,
-}: {
-  todoList: Todos[];
-  setTodoList: React.Dispatch<React.SetStateAction<Todos[]>>;
-  id: number;
-}) {
+function TodoDelete({ id }: { id: number }) {
+  const dispatch = useDispatch();
+
   const todoDelete = () => {
-    if (!confirm("정말 삭제하겠습니까?")) return;
-    const deletedList = todoList.filter((todo) => todo.id !== id);
-    setTodoList(deletedList);
+    dispatch(deleteTodoList(id));
   };
   return <button onClick={todoDelete}> 삭제 </button>;
 }

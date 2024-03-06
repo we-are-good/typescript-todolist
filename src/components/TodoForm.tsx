@@ -1,6 +1,8 @@
 import React from "react";
 import { Todos } from "../App";
 
+import { useDispatch } from "react-redux";
+import { addTodoList } from "../redux/modules/todoListModule";
 import {
   ButtonWrapper,
   InputDataWrapper,
@@ -26,6 +28,7 @@ function TodoForm({
   todoDate: string;
   setTodoDate: React.Dispatch<React.SetStateAction<string>>;
 }) {
+  const dispatch = useDispatch();
   const addTodo = async () => {
     const randomId = () => {
       return Math.floor(Math.random() * 1000000000);
@@ -38,7 +41,7 @@ function TodoForm({
       isDone: false,
     };
     console.log(randomId());
-    await setTodoList((prev) => [newTodo, ...prev]);
+    dispatch(addTodoList(newTodo));
     setTodoTitle("");
     setTodoContent("");
     setTodoDate("");

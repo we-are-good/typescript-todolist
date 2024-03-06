@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Todos } from "../App";
 import {
   ButtonWrapper,
@@ -7,6 +8,7 @@ import {
 import { IsDoneWrapper, TodoContent, TodoTitle } from "../styles/TodoListStyle";
 import TodoDelete from "./TodoDelete";
 import TodoToggle from "./TodoToggle";
+import { RootState } from "../redux/config/configStore";
 
 function TodoList({
   todoList,
@@ -15,7 +17,8 @@ function TodoList({
   todoList: Todos[];
   setTodoList: React.Dispatch<React.SetStateAction<Todos[]>>;
 }) {
-  console.log(todoList);
+  // const todoList = useSelector((state: RootState) => state.todoList);
+
   return (
     <div>
       <div>
@@ -38,11 +41,7 @@ function TodoList({
                             id={todo.id}
                             todo={todo}
                           />
-                          <TodoDelete
-                            todoList={todoList}
-                            setTodoList={setTodoList}
-                            id={todo.id}
-                          />
+                          <TodoDelete id={todo.id} />
                         </ButtonWrapper>
                       </InputDataWrapper>
                     </TodoTitleWrapper>
@@ -72,11 +71,7 @@ function TodoList({
                             id={todo.id}
                             todo={todo}
                           />
-                          <TodoDelete
-                            todoList={todoList}
-                            setTodoList={setTodoList}
-                            id={todo.id}
-                          />
+                          <TodoDelete id={todo.id} />
                         </ButtonWrapper>
                       </InputDataWrapper>
                     </TodoTitleWrapper>
