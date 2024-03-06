@@ -19,10 +19,10 @@ export const createTodo = async (todo: Todos) => {
   await apiClient.post(`/`, todo);
 };
 
-export const deleteTodo = async (id: number) => {
+export const deleteTodo = async (id: string) => {
   await apiClient.delete(`/${id}`);
 };
 
-export const updateTodo = async (id: number, todo: Todos) => {
+export const updateTodo = async (id: string, todo: Todos) => {
   await apiClient.patch(`/${id}`, todo);
 };

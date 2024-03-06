@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { deleteTodo } from "../api/todoListApi";
 import { deleteTodoList } from "../redux/modules/todoListModule";
 
-function TodoDelete({ id }: { id: number }) {
+function TodoDelete({ id }: { id: string }) {
   const dispatch = useDispatch();
 
   const todoDelete = () => {

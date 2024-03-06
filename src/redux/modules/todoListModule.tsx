@@ -17,13 +17,13 @@ const todoListSlice = createSlice({
       state.todoList = [...state.todoList, action.payload];
       console.log(state.todoList);
     },
-    deleteTodoList: (state, action: PayloadAction<number>) => {
+    deleteTodoList: (state, action: PayloadAction<string>) => {
       if (!confirm("정말 삭제하겠습니까?")) return;
       state.todoList = state.todoList.filter(
         (todo) => todo.id !== action.payload
       );
     },
-    toggleTodo: (state, action: PayloadAction<number>) => {
+    toggleTodo: (state, action: PayloadAction<string>) => {
       const findToggleTodo = state.todoList.find(
         (todo) => todo.id === action.payload
       );

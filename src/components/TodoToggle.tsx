@@ -3,7 +3,7 @@ import { Todos } from "../App";
 import { updateTodo } from "../api/todoListApi";
 import { toggleTodo } from "../redux/modules/todoListModule";
 
-function TodoToggle({ id, todo }: { id: number; todo: Todos }) {
+function TodoToggle({ id, todo }: { id: string; todo: Todos }) {
   const dispatch = useDispatch();
 
   const todoToggle = async () => {
