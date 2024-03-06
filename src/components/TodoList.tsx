@@ -10,14 +10,10 @@ import TodoDelete from "./TodoDelete";
 import TodoToggle from "./TodoToggle";
 import { RootState } from "../redux/config/configStore";
 
-function TodoList({
-  todoList,
-  setTodoList,
-}: {
-  todoList: Todos[];
-  setTodoList: React.Dispatch<React.SetStateAction<Todos[]>>;
-}) {
-  // const todoList = useSelector((state: RootState) => state.todoList);
+function TodoList() {
+  const todoList: Todos[] = useSelector(
+    (state: RootState) => state.todoList.todoList
+  );
 
   return (
     <div>
@@ -35,12 +31,7 @@ function TodoList({
                         <TodoContent> {todo.todoContent} </TodoContent>
                         <TodoContent> {todo.todoDate} </TodoContent>
                         <ButtonWrapper>
-                          <TodoToggle
-                            todoList={todoList}
-                            setTodoList={setTodoList}
-                            id={todo.id}
-                            todo={todo}
-                          />
+                          <TodoToggle id={todo.id} todo={todo} />
                           <TodoDelete id={todo.id} />
                         </ButtonWrapper>
                       </InputDataWrapper>
@@ -65,12 +56,7 @@ function TodoList({
                         <TodoContent> {todo.todoContent} </TodoContent>
                         <TodoContent> {todo.todoDate} </TodoContent>
                         <ButtonWrapper>
-                          <TodoToggle
-                            todoList={todoList}
-                            setTodoList={setTodoList}
-                            id={todo.id}
-                            todo={todo}
-                          />
+                          <TodoToggle id={todo.id} todo={todo} />
                           <TodoDelete id={todo.id} />
                         </ButtonWrapper>
                       </InputDataWrapper>

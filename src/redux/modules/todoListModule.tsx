@@ -20,8 +20,20 @@ const todoListSlice = createSlice({
         (todo) => todo.id !== action.payload
       );
     },
+    toggleTodo: (state, action: PayloadAction<number>) => {
+      const findToggleTodo = state.todoList.find(
+        (todo) => todo.id === action.payload
+      );
+      const deleteTodo = state.todoList.filter(
+        (todo) => todo.id !== action.payload
+      );
+      if (!findToggleTodo) return console.log("일치하는 값이 없습니다.");
+      findToggleTodo.isDone = !findToggleTodo.isDone;
+      state.todoList = [...deleteTodo, findToggleTodo];
+    },
   },
 });
 
 export default todoListSlice.reducer;
-export const { addTodoList, deleteTodoList } = todoListSlice.actions;
+export const { addTodoList, deleteTodoList, toggleTodo } =
+  todoListSlice.actions;

@@ -1,23 +1,12 @@
-import React from "react";
+import { useDispatch } from "react-redux";
 import { Todos } from "../App";
+import { toggleTodo } from "../redux/modules/todoListModule";
 
-function TodoToggle({
-  todoList,
-  setTodoList,
-  id,
-  todo,
-}: {
-  todoList: Todos[];
-  setTodoList: React.Dispatch<React.SetStateAction<Todos[]>>;
-  id: number;
-  todo: Todos;
-}) {
+function TodoToggle({ id, todo }: { id: number; todo: Todos }) {
+  const dispatch = useDispatch();
   const todoToggle = () => {
-    const toggleTodo = todoList.find((todo) => todo.id === id);
-    const deleteTodo = todoList.filter((todo) => todo.id !== id);
-    if (!toggleTodo) return console.log("일치하는 값이 없습니다.");
-    toggleTodo.isDone = !toggleTodo.isDone;
-    setTodoList([...deleteTodo, toggleTodo]);
+    dispatch(toggleTodo(id));
+    console.log(todo.isDone);
   };
   return <button onClick={todoToggle}>{todo.isDone ? "취소" : "완료"}</button>;
 }
