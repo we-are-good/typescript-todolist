@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Todos } from "../App";
 
-import { useDispatch } from "react-redux";
-import { addTodoList } from "../redux/modules/todoListModule";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createTodo } from "../api/todoListApi";
 import {
   ButtonWrapper,
   InputDataWrapper,
@@ -10,28 +10,36 @@ import {
   TodoTitleInput,
   TodoTitleWrapper,
 } from "../styles/TodoFormStyle";
-import { createTodo } from "../api/todoListApi";
 
 function TodoForm() {
   const [todoTitle, setTodoTitle] = useState<string>("");
   const [todoContent, setTodoContent] = useState<string>("");
   const [todoDate, setTodoDate] = useState<string>("");
-  const dispatch = useDispatch();
-  const addTodo = async () => {
-    const randomId = () => {
-      return Math.floor(Math.random() * 1000000000).toString();
-    };
-    const newTodo: Todos = {
-      id: randomId(),
-      todoTitle,
-      todoContent,
-      todoDate,
-      isDone: false,
-    };
-    console.log(randomId());
-    dispatch(addTodoList(newTodo));
-    createTodo(newTodo);
+  const queryClient = useQueryClient();
 
+  const randomId = () => {
+    return Math.floor(Math.random() * 1000000000).toString();
+  };
+  const newTodo: Todos = {
+    id: randomId(),
+    todoTitle,
+    todoContent,
+    todoDate,
+    isDone: false,
+  };
+
+  const { error, mutate: todoListMutate } = useMutation({
+    mutationFn: createTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+  });
+  if (error instanceof Error) {
+    return <div>Error!</div>;
+  }
+
+  const addTodo = async () => {
+    todoListMutate(newTodo);
     setTodoTitle("");
     setTodoContent("");
     setTodoDate("");

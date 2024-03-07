@@ -22,7 +22,10 @@ export const createTodo = async (todo: Todos) => {
 export const deleteTodo = async (id: string) => {
   await apiClient.delete(`/${id}`);
 };
-
-export const updateTodo = async (id: string, todo: Todos) => {
-  await apiClient.patch(`/${id}`, todo);
+interface Data {
+  id: string;
+  todo: Todos;
+}
+export const updateTodo = async (data: Data) => {
+  await apiClient.patch(`/${data.id}`, data.todo);
 };

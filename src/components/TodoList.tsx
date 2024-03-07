@@ -1,8 +1,6 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
 import { Todos } from "../App";
 import { getTodoList } from "../api/todoListApi";
-import { RootState } from "../redux/config/configStore";
 import {
   ButtonWrapper,
   InputDataWrapper,
@@ -11,21 +9,23 @@ import {
 import { IsDoneWrapper, TodoContent, TodoTitle } from "../styles/TodoListStyle";
 import TodoDelete from "./TodoDelete";
 import TodoToggle from "./TodoToggle";
-import { viewTodoList } from "../redux/modules/todoListModule";
 
 function TodoList() {
-  const dispatch = useDispatch();
-  const todoList: Todos[] = useSelector(
-    (state: RootState) => state.todoList.todoList
-  );
-
-  useEffect(() => {
-    const viewTodos = async () => {
-      const data: Todos[] = await getTodoList();
-      dispatch(viewTodoList(data));
-    };
-    viewTodos();
-  }, [dispatch]);
+  const {
+    isLoading,
+    error,
+    data: todoList,
+  } = useQuery<Todos[]>({
+    queryKey: ["todos"],
+    queryFn: getTodoList,
+  });
+  if (isLoading) {
+    return <div>Loading..</div>;
+  }
+  if (error instanceof Error) {
+    return <div>Error!</div>;
+  }
+  if (!todoList) return;
 
   return (
     <div>

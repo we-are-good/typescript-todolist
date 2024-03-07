@@ -1,17 +1,23 @@
-import { useDispatch } from "react-redux";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Todos } from "../App";
 import { updateTodo } from "../api/todoListApi";
-import { toggleTodo } from "../redux/modules/todoListModule";
 
 function TodoToggle({ id, todo }: { id: string; todo: Todos }) {
-  const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+
+  const { error, mutate: todoToggleMutate } = useMutation({
+    mutationFn: updateTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+  });
+  if (error instanceof Error) {
+    return <div>Error!</div>;
+  }
 
   const todoToggle = async () => {
     const isDoneToggle = { ...todo, isDone: !todo.isDone };
-    dispatch(toggleTodo(id));
-
-    await updateTodo(id, isDoneToggle);
-    console.log(todo.isDone);
+    todoToggleMutate({ id: id, todo: isDoneToggle });
   };
   return <button onClick={todoToggle}>{todo.isDone ? "취소" : "완료"}</button>;
 }

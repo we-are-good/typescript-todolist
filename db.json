@@ -12,14 +12,7 @@
       "todoTitle": "과제하기3",
       "todoContent": "과제하기3",
       "todoDate": "2022-02-02",
-      "isDone": false
-    },
-    {
-      "id": "210293319",
-      "todoTitle": "",
-      "todoContent": "",
-      "todoDate": "",
-      "isDone": false
+      "isDone": true
     }
   ]
 }
