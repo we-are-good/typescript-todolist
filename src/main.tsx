@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
 import { GlobalStyle } from "./styles/GlobalStyle.tsx";
+import Router from "./router/Router.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <GlobalStyle />
       {/* <ReactQueryDevtools initialIsOpen={true} /> */}
-      <App />
+      <Router />
     </QueryClientProvider>
   </React.StrictMode>
 );

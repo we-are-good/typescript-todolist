@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { Todos } from "../App";
 import { getTodoList } from "../api/todoListApi";
 import {
@@ -11,6 +12,7 @@ import TodoDelete from "./TodoDelete";
 import TodoToggle from "./TodoToggle";
 
 function TodoList() {
+  const navigation = useNavigate();
   const {
     isLoading,
     error,
@@ -27,6 +29,18 @@ function TodoList() {
   }
   if (!todoList) return;
 
+  const goDetailPage = (
+    // event: React.MouseEvent<HTMLElement, MouseEvent>,
+    id: string
+  ) => {
+    // if (event.button) {
+    //   console.log(event.button);
+    //   return;
+    // }
+
+    navigation(`/${id}`);
+  };
+
   return (
     <div>
       <div>
@@ -37,7 +51,7 @@ function TodoList() {
               {!todo.isDone && (
                 <div>
                   <div key={todo.id}>
-                    <TodoTitleWrapper>
+                    <TodoTitleWrapper onClick={() => goDetailPage(todo.id)}>
                       <TodoTitle> {todo.todoTitle} </TodoTitle>
                       <InputDataWrapper>
                         <TodoContent> {todo.todoContent} </TodoContent>

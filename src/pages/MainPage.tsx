@@ -1,6 +1,6 @@
-import Header from "./components/Header";
-import TodoForm from "./components/TodoForm";
-import TodoList from "./components/TodoList";
+import Header from "../components/Header";
+import TodoForm from "../components/TodoForm";
+import TodoList from "../components/TodoList";
 
 export interface Todos {
   id: string;
@@ -10,7 +10,7 @@ export interface Todos {
   isDone: boolean;
 }
 
-function App() {
+function MainPage() {
   return (
     <>
       <Header />
@@ -20,4 +20,4 @@ function App() {
   );
 }
 
-export default App;
+export default MainPage;
