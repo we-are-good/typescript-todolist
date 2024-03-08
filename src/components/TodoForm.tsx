@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Todos } from "../App";
-
+import { Todos } from "../pages/MainPage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTodo } from "../api/todoListApi";
 import {
@@ -8,13 +7,30 @@ import {
   InputDataWrapper,
   TodoContentTextarea,
   TodoTitleInput,
-  TodoTitleWrapper,
+  TodoItemWrapper,
 } from "../styles/TodoFormStyle";
 
 function TodoForm() {
-  const [todoTitle, setTodoTitle] = useState<string>("");
-  const [todoContent, setTodoContent] = useState<string>("");
-  const [todoDate, setTodoDate] = useState<string>("");
+  interface FormInterface {
+    todoTitle: string;
+    todoContent: string;
+    todoDate: string;
+  }
+  const [formState, setFormState] = useState<FormInterface>({
+    todoTitle: "",
+    todoContent: "",
+    todoDate: "",
+  });
+  const { todoTitle, todoContent, todoDate } = formState;
+  const onChangeHandler = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    setFormState((prev) => ({ ...prev, [name]: value }));
+  };
+
   const queryClient = useQueryClient();
 
   const randomId = () => {
@@ -40,35 +56,35 @@ function TodoForm() {
 
   const addTodo = async () => {
     todoListMutate(newTodo);
-    setTodoTitle("");
-    setTodoContent("");
-    setTodoDate("");
+    setFormState({
+      todoTitle: "",
+      todoContent: "",
+      todoDate: "",
+    });
   };
 
-  function titleEventHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setTodoTitle(event.target.value);
-  }
-  function contentEventHandler(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    setTodoContent(event.target.value);
-  }
-  function dateEventHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setTodoDate(event.target.value);
-  }
   return (
     <>
-      <TodoTitleWrapper>
+      <TodoItemWrapper>
         <TodoTitleInput
           placeholder="Todo Title"
+          name="todoTitle"
           value={todoTitle}
-          onChange={titleEventHandler}
+          onChange={onChangeHandler}
         />
         <InputDataWrapper>
           <TodoContentTextarea
             placeholder="Todo Content"
+            name="todoContent"
             value={todoContent}
-            onChange={contentEventHandler}
+            onChange={onChangeHandler}
           />
-          <input type="date" value={todoDate} onChange={dateEventHandler} />
+          <input
+            type="date"
+            name="todoDate"
+            value={todoDate}
+            onChange={onChangeHandler}
+          />
           <ButtonWrapper>
             <button
               onClick={() => {
@@ -79,7 +95,7 @@ function TodoForm() {
             </button>
           </ButtonWrapper>
         </InputDataWrapper>
-      </TodoTitleWrapper>
+      </TodoItemWrapper>
     </>
   );
 }

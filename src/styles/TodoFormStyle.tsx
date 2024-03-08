@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TodoTitleWrapper = styled.article`
+export const TodoItemWrapper = styled.article`
   width: 16rem;
   height: 16rem;
   display: flex;

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Todos } from "../App";
 import { updateTodo } from "../api/todoListApi";
+import { Todos } from "../pages/MainPage";
 
 function TodoToggle({ id, todo }: { id: string; todo: Todos }) {
   const queryClient = useQueryClient();

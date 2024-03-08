@@ -1,32 +1,18 @@
 {
   "todoList": [
     {
-      "id": "1",
-      "todoTitle": "과제하기",
-      "todoContent": "과제하기",
-      "todoDate": "2022-02-02",
+      "id": "707690467",
+      "todoTitle": "일번",
+      "todoContent": "첫번째 도전자",
+      "todoDate": "2024-03-20",
       "isDone": false
     },
     {
-      "id": "3",
-      "todoTitle": "과제하기3",
-      "todoContent": "과제하기3",
-      "todoDate": "2022-02-02",
-      "isDone": true
-    },
-    {
-      "id": "343544816",
-      "todoTitle": "111",
-      "todoContent": "1111",
-      "todoDate": "2024-03-07",
-      "isDone": true
-    },
-    {
-      "id": "771241939",
-      "todoTitle": "222",
-      "todoContent": "2222",
+      "id": "14735100",
+      "todoTitle": "",
+      "todoContent": "",
       "todoDate": "",
-      "isDone": false
+      "isDone": true
     }
   ]
 }

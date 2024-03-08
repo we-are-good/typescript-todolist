@@ -1,18 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { Todos } from "../App";
 import { getTodoList } from "../api/todoListApi";
 import {
   ButtonWrapper,
   InputDataWrapper,
-  TodoTitleWrapper,
+  TodoItemWrapper,
 } from "../styles/TodoFormStyle";
 import { IsDoneWrapper, TodoContent, TodoTitle } from "../styles/TodoListStyle";
 import TodoDelete from "./TodoDelete";
 import TodoToggle from "./TodoToggle";
+import { Todos } from "../pages/MainPage";
 
 function TodoList() {
   const navigation = useNavigate();
+  const ref = useRef(null);
   const {
     isLoading,
     error,
@@ -29,16 +30,20 @@ function TodoList() {
   }
   if (!todoList) return;
 
-  const goDetailPage = (
-    // event: React.MouseEvent<HTMLElement, MouseEvent>,
+  const detailPageEventHandler = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
     id: string
   ) => {
-    // if (event.button) {
-    //   console.log(event.button);
-    //   return;
-    // }
-
-    navigation(`/${id}`);
+    // const element = ref.current;
+    // if (element)
+    //   return element.removeEventListener("click", detailPageEventHandler);
+    if (event.target !== event.currentTarget) {
+      return console.log("여기가 클릭되었다");
+    } // 버튼만 제외해야 하는데 모든 항목이 제외가 되어버렸다. 이것을 사용하려면 구조를 다 바꿔야 한다.
+    const goDetailPage = () => {
+      navigation(`/${id}`);
+    };
+    goDetailPage();
   };
 
   return (
@@ -51,7 +56,11 @@ function TodoList() {
               {!todo.isDone && (
                 <div>
                   <div key={todo.id}>
-                    <TodoTitleWrapper onClick={() => goDetailPage(todo.id)}>
+                    <TodoItemWrapper
+                      onClick={(event) => {
+                        detailPageEventHandler(event, todo.id);
+                      }}
+                    >
                       <TodoTitle> {todo.todoTitle} </TodoTitle>
                       <InputDataWrapper>
                         <TodoContent> {todo.todoContent} </TodoContent>
@@ -61,7 +70,7 @@ function TodoList() {
                           <TodoDelete id={todo.id} />
                         </ButtonWrapper>
                       </InputDataWrapper>
-                    </TodoTitleWrapper>
+                    </TodoItemWrapper>
                   </div>
                 </div>
               )}
@@ -76,7 +85,7 @@ function TodoList() {
               {todo.isDone && (
                 <div>
                   <div>
-                    <TodoTitleWrapper>
+                    <TodoItemWrapper>
                       <TodoTitle> {todo.todoTitle} </TodoTitle>
                       <InputDataWrapper>
                         <TodoContent> {todo.todoContent} </TodoContent>
@@ -86,7 +95,7 @@ function TodoList() {
                           <TodoDelete id={todo.id} />
                         </ButtonWrapper>
                       </InputDataWrapper>
-                    </TodoTitleWrapper>
+                    </TodoItemWrapper>
                   </div>
                 </div>
               )}
