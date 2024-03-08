@@ -25,8 +25,5 @@ export const IsDoneWrapper = styled.div`
   justify-content: flex-start;
   padding: 20px 40px;
   font-weight: 800;
-<<<<<<< HEAD
-=======
   width: 600px;
->>>>>>> level-5
 `;
