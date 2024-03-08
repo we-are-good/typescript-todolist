@@ -10,8 +10,9 @@ export const apiClient = axios.create({
   },
 });
 
-export const getTodoList = async () => {
-  const { data } = await apiClient.get(`/`);
+export const getTodoList = async (): Promise<Todos[]> => {
+  //promise 없어도 아래의 Todos로 데이터 타입 인식
+  const { data } = await apiClient.get<Todos[]>(`/`);
   return data;
 };
 
