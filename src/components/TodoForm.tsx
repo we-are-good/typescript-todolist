@@ -27,6 +27,7 @@ function TodoForm({
   setTodoDate: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const addTodo = async () => {
+    if (!todoTitle || !todoContent) return alert("빈칸을 입력하세요.");
     const randomId = () => {
       return Math.floor(Math.random() * 1000000000);
     };

@@ -1,4 +1,3 @@
-import React from "react";
 import { HeaderWrapper } from "../styles/HeaderStyle";
 
 function Header() {
