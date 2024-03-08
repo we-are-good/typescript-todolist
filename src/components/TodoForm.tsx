@@ -39,6 +39,7 @@ function TodoForm() {
   }
 
   const addTodo = async () => {
+    if (!todoTitle || !todoContent) return alert("빈칸을 입력하세요.");
     todoListMutate(newTodo);
     setTodoTitle("");
     setTodoContent("");
