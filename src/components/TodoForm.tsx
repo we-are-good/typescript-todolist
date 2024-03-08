@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Todos } from "../App";
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createTodo } from "../api/todoListApi";
 import {
   ButtonWrapper,
   InputDataWrapper,
@@ -9,36 +11,36 @@ import {
   TodoTitleWrapper,
 } from "../styles/TodoFormStyle";
 
-function TodoForm({
-  setTodoList,
-  todoTitle,
-  setTodoTitle,
-  todoContent,
-  setTodoContent,
-  todoDate,
-  setTodoDate,
-}: {
-  setTodoList: React.Dispatch<React.SetStateAction<Todos[]>>;
-  todoTitle: string;
-  setTodoTitle: React.Dispatch<React.SetStateAction<string>>;
-  todoContent: string;
-  setTodoContent: React.Dispatch<React.SetStateAction<string>>;
-  todoDate: string;
-  setTodoDate: React.Dispatch<React.SetStateAction<string>>;
-}) {
+function TodoForm() {
+  const [todoTitle, setTodoTitle] = useState<string>("");
+  const [todoContent, setTodoContent] = useState<string>("");
+  const [todoDate, setTodoDate] = useState<string>("");
+  const queryClient = useQueryClient();
+
+  const randomId = () => {
+    return Math.floor(Math.random() * 1000000000).toString();
+  };
+  const newTodo: Todos = {
+    id: randomId(),
+    todoTitle,
+    todoContent,
+    todoDate,
+    isDone: false,
+  };
+
+  const { error, mutate: todoListMutate } = useMutation({
+    mutationFn: createTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+  });
+  if (error instanceof Error) {
+    return <div>Error!</div>;
+  }
+
   const addTodo = async () => {
-    const randomId = () => {
-      return Math.floor(Math.random() * 1000000000);
-    };
-    const newTodo: Todos = {
-      id: randomId(),
-      todoTitle,
-      todoContent,
-      todoDate,
-      isDone: false,
-    };
-    console.log(randomId());
-    await setTodoList((prev) => [newTodo, ...prev]);
+    if (!todoTitle || !todoContent) return alert("빈칸을 입력하세요.");
+    todoListMutate(newTodo);
     setTodoTitle("");
     setTodoContent("");
     setTodoDate("");

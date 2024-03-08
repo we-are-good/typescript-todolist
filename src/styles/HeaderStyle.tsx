@@ -9,4 +9,8 @@ export const HeaderWrapper = styled.header`
   justify-content: space-between;
   padding: 20px 40px;
   font-weight: 800;
+<<<<<<< HEAD
+=======
+  width: 600px;
+>>>>>>> level-5
 `;

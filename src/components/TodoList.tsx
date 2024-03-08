@@ -1,4 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import { Todos } from "../App";
+import { getTodoList } from "../api/todoListApi";
 import {
   ButtonWrapper,
   InputDataWrapper,
@@ -8,22 +10,31 @@ import { IsDoneWrapper, TodoContent, TodoTitle } from "../styles/TodoListStyle";
 import TodoDelete from "./TodoDelete";
 import TodoToggle from "./TodoToggle";
 
-function TodoList({
-  todoList,
-  setTodoList,
-}: {
-  todoList: Todos[];
-  setTodoList: React.Dispatch<React.SetStateAction<Todos[]>>;
-}) {
-  console.log(todoList);
+function TodoList() {
+  const {
+    isLoading,
+    error,
+    data: todoList,
+  } = useQuery<Todos[]>({
+    queryKey: ["todos"],
+    queryFn: getTodoList,
+  });
+  if (isLoading) {
+    return <div>Loading..</div>;
+  }
+  if (error instanceof Error) {
+    return <div>Error!</div>;
+  }
+  if (!todoList) return;
+
   return (
     <div>
       <div>
-        <IsDoneWrapper>진행중</IsDoneWrapper>
+        <IsDoneWrapper>Working</IsDoneWrapper>
         {todoList.map((todo) => {
           return (
-            <div>
-              {todo.isDone && (
+            <div key={todo.id}>
+              {!todo.isDone && (
                 <div>
                   <div key={todo.id}>
                     <TodoTitleWrapper>
@@ -32,17 +43,8 @@ function TodoList({
                         <TodoContent> {todo.todoContent} </TodoContent>
                         <TodoContent> {todo.todoDate} </TodoContent>
                         <ButtonWrapper>
-                          <TodoToggle
-                            todoList={todoList}
-                            setTodoList={setTodoList}
-                            id={todo.id}
-                            todo={todo}
-                          />
-                          <TodoDelete
-                            todoList={todoList}
-                            setTodoList={setTodoList}
-                            id={todo.id}
-                          />
+                          <TodoToggle id={todo.id} todo={todo} />
+                          <TodoDelete id={todo.id} />
                         </ButtonWrapper>
                       </InputDataWrapper>
                     </TodoTitleWrapper>
@@ -53,30 +55,21 @@ function TodoList({
           );
         })}
 
-        <IsDoneWrapper>완료</IsDoneWrapper>
+        <IsDoneWrapper>Done</IsDoneWrapper>
         {todoList.map((todo) => {
           return (
-            <div>
-              {!todo.isDone && (
+            <div key={todo.id}>
+              {todo.isDone && (
                 <div>
-                  <div key={todo.id}>
+                  <div>
                     <TodoTitleWrapper>
                       <TodoTitle> {todo.todoTitle} </TodoTitle>
                       <InputDataWrapper>
                         <TodoContent> {todo.todoContent} </TodoContent>
                         <TodoContent> {todo.todoDate} </TodoContent>
                         <ButtonWrapper>
-                          <TodoToggle
-                            todoList={todoList}
-                            setTodoList={setTodoList}
-                            id={todo.id}
-                            todo={todo}
-                          />
-                          <TodoDelete
-                            todoList={todoList}
-                            setTodoList={setTodoList}
-                            id={todo.id}
-                          />
+                          <TodoToggle id={todo.id} todo={todo} />
+                          <TodoDelete id={todo.id} />
                         </ButtonWrapper>
                       </InputDataWrapper>
                     </TodoTitleWrapper>

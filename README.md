@@ -1,30 +1,60 @@
-# React + TypeScript + Vite
+# TodoList
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### 목적
 
-Currently, two official plugins are available:
+- 할 일 목록을 관리할 수 있는 홈페이지를 제작하기 위해 만들어졌습니다.
+- 할 일을 추기하고, 삭제하고, 완료/진행 여부를 바꿀 수 있습니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+### 항목
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- TodoTitle : 할일 제목
+- TodoContent : 할일 내용
+- TodoDate : 마감일
+- IsDone : 완료/진행중
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+### 컴포넌트 구조
+
+```
+📦src
+┣ 📂assets
+┃ ┗ 📜react.svg
+┣ 📂components
+┃ ┣ 📜Header.tsx
+┃ ┣ 📜TodoDelete.tsx -- Todo delete
+┃ ┣ 📜TodoForm.tsx -- Todo create
+┃ ┣ 📜TodoList.tsx -- TodoList reading
+┃ ┗ 📜TodoToggle.tsx -- Todo working/done toggle
+┣ 📂styles
+┃ ┣ 📜GlobalStyle.tsx
+┃ ┣ 📜HeaderStyle.tsx
+┃ ┣ 📜TodoFormStyle.tsx
+┃ ┗ 📜TodoListStyle.tsx
+┣ 📜App.tsx
+┣ 📜main.tsx -- GlobalStyle
+┗ 📜vite-env.d.ts
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+---
+
+### 사용방법
+
+- 제목과 내용을 입력한 후 등록 버튼을 누릅니다.
+  - 등록한 할일은 Working 에 입력됩니다.
+  - 제목과 내용을 입력하지 않으면 등록되지 않습니다.
+- working에 등록된 할일은 완료와 삭제 버튼이 있습니다
+  - 완료를 누르면 Done으로 이동합니다.
+  - 삭제를 누르면 리스트가 삭제됩니다.
+
+---
+
+### 사용된 기술
+
+- React
+- React-query
+- json-server : axios를 사용하여 데이터를 관리합니다.
+
+---
